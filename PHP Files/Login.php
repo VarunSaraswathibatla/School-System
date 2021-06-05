@@ -4,10 +4,11 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Cinzel Decorative' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Cinzel Decorative' rel='stylesheet'>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body, html {
+body, html
+{
   height: 100%;
   
 } 
@@ -17,8 +18,8 @@ body, html {
 }
 
 .bg-img {
-  
-  background-image: url("johnson.jpg");
+  /* The image used */
+  background-image: url("Images/johnson.jpg");
 
   
   height:100%;
@@ -30,12 +31,12 @@ body, html {
   position: relative;
 }
 
-
+/* Add styles to the form container */
 .container {
   position: relative;
  
   right:-75%;
-  
+  /*margin-left: 10px;*/
   max-width: 300px;
   padding: 20px;
   background-color:  lightgrey;/*rgba(246, 248, 247, 0.959);*/
@@ -43,7 +44,7 @@ body, html {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-
+/* Full-width input fields */
 input[type=text], input[type=password] {
   width: 100%;
   padding: 15px;
@@ -61,7 +62,7 @@ h2
     font-family:Cinzel Decorative ;
 }
 
-
+/* Set a style for the submit button */
 .btn {
   background-color: #04AA6D;
   color: white;
@@ -112,6 +113,7 @@ h2
           $error = $_SESSION["error"];
           echo "<span>$error</span>";
         }
+        
     ?>  
 
   </form>
@@ -119,5 +121,5 @@ h2
 </body>
 </html>
 <?php
-    unset($_SESSION["error"]);
+   
 ?>

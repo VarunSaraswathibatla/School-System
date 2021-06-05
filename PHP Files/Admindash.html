@@ -1,10 +1,12 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <style>
 body {font-family: Arial;}
-
 
 .tab {
   overflow: hidden;
@@ -12,7 +14,7 @@ body {font-family: Arial;}
   background-color: #000080;
 }
 
-
+/* Style the buttons inside the tab */
 .tab button 
 {
   background-color: inherit;
@@ -26,7 +28,7 @@ body {font-family: Arial;}
   color: white;
 }
 
-
+/* Change background color of buttons on hover */
 .tab button:hover {
   background-color: #ddd;
 }
@@ -36,7 +38,7 @@ body {font-family: Arial;}
   background-color: rgb(80, 78, 228);
 }
 
-/* Style the tab content */
+
 .tabcontent {
   display: none;
   padding: 6px 12px;
@@ -59,41 +61,74 @@ body {font-family: Arial;}
 </head>
 <body>
 
-<h1 style="text-align:center">&#128508;St.Joseph's School</h1>
+<h1 style="text-align:center"><img src=Images/logo.png style="vertical-align:middle;height:90px;"> St.Joseph's School</h1>
 
+
+
+
+
+</div>
 <div class="tab">
   
-  <button class="tablinks" onclick="admintask(event, 'Teacher')">Teacher</button>
+  
   <button class="tablinks" onclick="admintask(event, 'Student')"id="defaultOpen">Student</button>
-  <button class="tablinks" onclick="admintask(event, 'Student')" style="float:left;" >Log Out</button>
+  <button class="tablinks" onclick="admintask(event, 'Teacher')">Teacher</button>
+  <button class="tablinks" onclick="admintask(event,'Update')">Auto Update</button>
+  <button class="tablinks" onclick="window.location.href='http://localhost/PHP%20files/Logout.php';" style="float:left;" >Log Out</button>
 
   
 </div>
 
 <div id="Student" class="tabcontent">
-  <h3>Student Details</h3>
+  <h2>Student Details </h2>
   <button class="button" onclick="window.location.href='http://localhost/PHP%20files/Studentinsert.php';">
     Add New Student</button>
   <button class="button" onclick="window.location.href='http://localhost/PHP%20files/ViewStudentDetails.php';">
       View Student List</button>
-  <button class="button" onclick="window.location.href='http:////localhost/PHP%20files/Studentinsert.php';">
+  <button class="button" onclick="window.location.href='http:////localhost/PHP%20files/Editstudent.php';">
         Edit Student </button>
   <button class="button" onclick="window.location.href='http://localhost/PHP%20files/DeleteStudent.php';">
           Delete Student </button>
   
   <hr>
-  <h3>Student Attendance</h3>
+  <h2>Student Attendance</h2>
   <button class="button" onclick="window.location.href='http://localhost/PHP%20files/StudentAttendance.php';">
     View Student Attendance</button>
-  <button class="button" onclick="window.location.href='http://localhost/PHP%20files/StudentAttendance.php';">
+  <button class="button" onclick="window.location.href='http://localhost/PHP%20files/Editstudentattendance.php';">
       Edit Student Attendance</button>
 </div>
 
 <div id="Teacher" class="tabcontent">
-  <h3>Teacher-Tab</h3>
-  <p>Teacher details will be displayed here.</p> 
+  <h2>Teacher Details </h2>
+  <button class="button" onclick="window.location.href='http://localhost/PHP%20files/Teacherinsert.php';">
+    Add New Teacher</button>
+  <button class="button" onclick="window.location.href='http://localhost/PHP%20files/ViewTeacherDetails.php';">
+      View Teacher List</button>
+  <button class="button" onclick="window.location.href='http:////localhost/PHP%20files/EditTeacher.php';">
+        Edit Teacher </button>
+  <button class="button" onclick="window.location.href='http://localhost/PHP%20files/DeleteTeacher.php';">
+          Delete Teacher</button>
+
+  
   <hr>
-  <p>Teacher attendance will be displayed here.</p>
+  <h2>Teacher Class Details</h2>
+  <button class="button" onclick="window.location.href='http://localhost/PHP%20files/ViewTeacherClassDetails.php';">
+    View Teacher Class Details </button>
+  <button class="button" onclick="window.location.href='http://localhost/PHP%20files/Editclassteachers.php';">
+      Edit Teacher Class Details</button>
+      </div>
+
+  
+
+
+<div id="Update" class="tabcontent">
+  <center><h1 style="color :red">Danger Zone !!! 
+  </h1>
+  <button class="button" onclick="window.location.href='http://localhost/PHP%20files/AutoUpdate.php';">
+    Auto Update</button>
+
+    
+  </center>
 </div>
 
 <script>

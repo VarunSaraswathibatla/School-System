@@ -1,9 +1,3 @@
-<?php
-
-
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,10 +8,10 @@
 </head>
 <body>
 <div class="header">
-  <a href="Admindash.html" class="logo"><img src=Images/logo.png
+  <a href="Teacherdash.html" class="logo"><img src=Images/logo.png
   style="width:60px;height:50px;vertical-align:middle;"> St.Joseph's School</a>
   <div class="header-right">
-    <a class="actives" href="Admindash.html">Dashboard</a>
+    <a class="actives" href="Teacherdash.html">Dashboard</a>
     <a class="actives" href="Login.php">Logout</a>
 
   </div>
@@ -170,7 +164,7 @@ error_reporting(E_ALL ^ E_WARNING);
 			}
 		}
      $query .= " order by student_variable.Student_Class;";
-    
+     echo $query;
 
 
      $result = $conn->query($query);
@@ -265,6 +259,5 @@ error_reporting(E_ALL ^ E_WARNING);
  <?php
 
   }}
-  
  ?>
  </html>

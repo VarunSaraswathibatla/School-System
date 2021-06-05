@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<style>
+body {font-family: Arial;}
+
+.tab {
+  overflow: hidden;
+  border: 1px solid rgb(204, 204, 204);
+  background-color: #000080;
+}
+
+/* Style the buttons inside the tab */
+.tab button 
+{
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+  color: white;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+
+.tab button.active {
+  background-color: rgb(80, 78, 228);
+}
+
+
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<h1 style="text-align:center"><img src=Images/logo.png style="vertical-align:middle;height:90px;"> St.Joseph's School</h1>
+
+
+
+
+
+</div>
+<div class="tab">
+  
+  
+  <button class="tablinks" onclick="admintask(event, 'Student')"id="defaultOpen">Student</button>
+  <button class="tablinks" onclick="window.location.href='http://localhost/PHP%20files/Logout.php';" style="float:left;" >Log Out</button>
+
+  
+</div>
+
+<div id="Student" class="tabcontent">
+  <h2>Student Details </h2>
+  <button class="button" onclick="window.location.href='http://localhost/PHP%20files/Viewinteacher.php';">
+      View Student List</button>
+  
+  <hr>
+  <h2>Student Attendance</h2>
+ 
+  <button class="button" onclick="window.location.href='http://localhost/PHP%20files/MarkAttendance.php';">
+      Mark Student Attendance</button>
+</div>
+
+<script>
+    function admintask(evt, Employee) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(Employee).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+    document.getElementById("defaultOpen").click();
+    </script>  
+    </body>
+    </html> 
+    

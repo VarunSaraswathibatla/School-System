@@ -2,12 +2,23 @@
 <html lang="en">
   
 <head>
-    <title>Insert Data</title>
+    <title>Insert student</title>
 </head>
-  
+<link rel="stylesheet" href="Header.css">
+</head>
+<body>
+<div class="header">
+  <a href="Admindash.html" class="logo"><img src=Images/logo.png
+  style="width:60px;height:50px;vertical-align:middle;"> St.Joseph's School</a>
+  <div class="header-right">
+    <a class="actives" href="Admindash.html">Dashboard</a>
+    <a class="actives" href="Login.php">Logout</a>
+
+  </div>
+</div><br><br><br><br><br><br>
 <body>
     <center>
-        <h1>Storing Form data in Database</h1>
+        <h1>ADD NEW STUDENT FORM</h1>
   
         <form action>
             <p>
@@ -32,8 +43,23 @@
                 <input type="text" name="Student_Lname" id="lastName">
             </p>
             <p>
+                <label for="Class">Class:</label>
+                <input type="text" name="Student_Class" id="Class"> 
+            </p>
+
+            <p>
+                <label for="Section">Section:</label>
+                <input type="text" name="Student_Section" id="Section"> 
+            </p>
+
+            <p>
+                <label for="Rollno">Rollno:</label>
+                <input type="text" name="Student_Rollno" id="Rollno"> 
+            </p>
+  
+            <p>
                 <label for="DOB">Date of Birth:</label>
-                <input type="text" name="Student_DOB" id="DOB"> 
+                <input type="date" name="Student_DOB" id="DOB"> 
             </p>
   
               
@@ -63,10 +89,10 @@
     
         <?php
   
-        
-        $conn = mysqli_connect("localhost", "root", "****", "school_system");
+       
+        $conn = mysqli_connect("localhost", "root", "*", "school_system");
           
-        
+        // Check connection
         if($conn === false){
             die("ERROR: Could not connect. " 
                 . mysqli_connect_error());
@@ -81,32 +107,41 @@
         $Student_Mname = $_REQUEST['Student_Mname'];
         $Student_Lname = $_REQUEST['Student_Lname'];
         $Student_DOB = $_REQUEST['Student_DOB'];
-       
-
+        $Student_Class =  $_REQUEST['Student_Class'];
+        $Student_Section =  $_REQUEST['Student_Section'];
+        $Student_Rollno =  $_REQUEST['Student_Rollno'];
         $Student_Gender =  $_REQUEST['Student_Gender'];
         $Student_Mobile = $_REQUEST['Student_Mobile'];
         $finger_template = $_REQUEST['finger_template'];
           
-    
+        $y=date("Y");
+        $z=$y+1;
+        
         $sql = "INSERT INTO student  VALUES ('$Student_ID', 
-            '$Student_Fname','$Student_Mname','$Student_Lname','$Student_DOB','$Student_Gender','$Student_Mobile','$finger_template')";
-          
-        if(mysqli_query($conn, $sql)){
+            '$Student_Fname','$Student_Mname','$Student_Lname','$Student_DOB','$Student_Gender','$Student_Mobile','$finger_template');";
+
+        $sql2= "INSERT INTO student_variable  VALUES ('$Student_ID', '$Student_Class','$Student_Section','$Student_Rollno','$y','$z');";
+        
+        mysqli_query($conn, $sql2);
+        if(mysqli_query($conn, $sql))
+        {
             echo "<h3>data stored in a database successfully." 
                 . " Please browse your localhost php my admin" 
                 . " to view the updated data</h3>"; 
   
             //echo nl2br("\n$first_name\n $last_name\n "
                 //. "$gender\n $address\n $email");
-        } else{
+        } 
+        else{
             
             //echo "ERROR: Hush! Sorry. " ;
             //header("location: http://localhost/PHP%20files/Studentinsert.php");
                 //. mysqli_error($conn);
        }
-          
-        // Close connection
-        mysqli_close($conn);
+       ?>
+       
+      
+        <?php mysqli_close($conn);
         ?>
     
 </body>

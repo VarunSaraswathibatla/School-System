@@ -1,16 +1,17 @@
-<?php
-
-
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Search student</title>
+    <title>Search Classes</title>
 </head>
+
+<body>
+<head>
+    
+
+
 <link rel="stylesheet" href="Header.css">
+
 </head>
 <body>
 <div class="header">
@@ -22,15 +23,16 @@
 
   </div>
 </div><br><br><br><br><br><br>
-<body>
     <h1> Filter</h1><center>
     <form action>
                 <p>
-                <label for="Id">Student-Id:</label>
-                <input type="text" name="Student_ID" id="Id">
+                <label for="Id">Id:</label>
+                <input type="text" name="Id" id="Id"><br><br>
 
-				        <label for="FName">Name:</label>
-                <input type="text" name="Studentname" id="FName">
+                <label for="Name">Name:</label>
+                <input type="text" name="Name" id="Name">
+
+
                 <h3>Class:</h3>
                 1<input type="checkbox" name="class[]" value=1>
                 2<input type="checkbox" name="class[]" value=2>
@@ -44,26 +46,17 @@
                 10<input type="checkbox" name="class[]" value=10>
 
         <h3>Section:</h3>
-				A<input type="checkbox" name="section[]" value="A">
+		   A<input type="checkbox" name="section[]" value="A">
     		B<input type="checkbox" name="section[]" value="B">
    			C<input type="checkbox" name="section[]" value="C">
     		D<input type="checkbox" name="section[]" value="D">
 
             </p>
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit"><br>
 
 </form>
 </center>
-<?php
-error_reporting(E_ALL ^ E_WARNING);
- $Student_Id = $_REQUEST['Student_ID'];
- $Student_name = $_REQUEST['Studentname'];
-
-
-
-?>
-
 </body>
 </html>
 <?php
@@ -78,12 +71,13 @@ error_reporting(E_ALL ^ E_WARNING);
   }
 
   error_reporting(E_ALL ^ E_WARNING);
-  $Student_Fname= $_REQUEST['Studentname'];
+ 
+ 
 
   $y= date("Y");
-  $query = "SELECT student.Student_ID,CONCAT(Student_Fname,' ',Student_Mname,' ',Student_Lname)Student_name,Student_DOB,Student_DOB,Student_Gender,Student_Mobile,finger_template,Student_Class,Student_Section,Student_Rollno FROM student left join
-   student_variable on student.Student_ID=student_variable.Student_Id
-  where student_variable.Academic_Start='$y'";
+  $query = "select c.User_Id,Class,Section,Subject,Concat(User_Fname,' ',User_Mname,' ',User_Lname)User_Name from classes c inner join user_details  u
+   ON c.User_Id=u.User_Id where c.User_Id IS NOT NULL";
+
  // $q2="select Student_fname from student where Student_Fname like '$Student_Fname'%;";
 
 
@@ -99,40 +93,38 @@ error_reporting(E_ALL ^ E_WARNING);
 	  unset($_GET['section']);
 	  $filtered_get = array_filter($_GET);
 
-    $cla = $_GET['class'];
+      $cla = $_GET['class'];
 	  if($cla)
 	  $clacount=count($cla);
 	  unset($_GET['class']);
 	  $filtered_get = array_filter($_GET);
 
-
-
-      $keynames = array_keys($filtered_get); // make array of key names from $filtered_get
-     // echo $filtered_get;
-     $c=count($keynames);
-
-
-
       foreach($filtered_get as $key => $value)
       {
 
-         if($key!='Studentname')
+         if($key!='Name')
 		 {
 			$query .=" and";
-           $query .= " student_variable.$key = '$value' ";
+           $query .= " u.User_Id = '$value'";
            $c--;
            error_reporting(E_ALL ^ E_WARNING);
 		 }
 		else
 		{
 			$query .=" and";
-			$query .= " student.Student_Fname like '$value%' ";
+			$query .= " u.User_Fname like '$value%'";
 			$c--;
 			error_reporting(E_ALL ^ E_WARNING);
 
 		}
 				// $filtered_get keyname = $filtered_get['keyname'] value
        }
+
+
+
+      $keynames = array_keys($filtered_get); // make array of key names from $filtered_get
+     // echo $filtered_get;
+     $c=count($keynames);
    }
    if($clacount>=1)
    {
@@ -143,34 +135,34 @@ error_reporting(E_ALL ^ E_WARNING);
       {
       if($clacount>1)
       {
-        $query .=" student_variable.Student_Class='$c' OR ";
+        $query .=" c.Class=$c OR";
          $clacount--;
         }
       else if($clacount==1)
       {
-        $query .=" student_variable.Student_Class='$c') ";
+        $query .=" c.Class=$c)";
       }
     }
 
    if($secount>=1)
    {
-	   $query .=" and ( ";
+	   $query .=" and (";
    }
 
 	   foreach($sec as $s)
    		{
 			if($secount>1)
 			{
-	   		$query .=" student_variable.Student_Section='$s' OR ";
+	   		$query .=" c.Section='$s' OR";
 			   $secount--;
    			}
 			else if($secount==1)
 			{
-				$query .=" student_variable.Student_Section='$s')";
+				$query .=" c.Section='$s')";
 			}
 		}
-     $query .= " order by student_variable.Student_Class;";
-    
+     $query .= ";";
+	//echo $query;
 
 
      $result = $conn->query($query);
@@ -178,6 +170,7 @@ error_reporting(E_ALL ^ E_WARNING);
      <style>
 		table {
 			margin: 0 auto;
+      margin-top:20px;
 			font-size: large;
 			border: 1px solid black;
 		}
@@ -209,29 +202,18 @@ error_reporting(E_ALL ^ E_WARNING);
 </head>
 
 <body>
-<?php if($secount>0 or $clacount>0  or $Student_name!=null or $Student_Id>0)
-{ 
-  ?>
-        <h1>Student Details</h1>
 
-		<table>
     
-			<tr>
-				<th>Admission Number</th>
-        <th>Roll Number</th>
-        <th>Name</th>
-        
+		<h1>Classes Details</h1>
+		<table>
+		<tr>
+		<th>User ID</th>
+        <th>Faculty</th>
         <th>Class</th>
         <th>Section</th>
+        <th>Subject</th>
         
-        <th>Date of Birth</th>
-        <th>Gender</th>
-        <th>Mobile Number</th>
-        <th>Finger Template</th>
-
-
-
-				</tr>
+		</tr>
 
 <?php
 
@@ -247,24 +229,17 @@ error_reporting(E_ALL ^ E_WARNING);
  <tr>
      <!--FETCHING DATA FROM EACH
          ROW OF EVERY COLUMN-->
-     <td><?php echo $rows['Student_ID'];?></td>
-     <td><?php echo $rows['Student_Rollno'];?></td>
-     <td><?php echo $rows['Student_name'];?></td>
+     <td><?php echo $rows['User_Id'];?></td>
+     <td><?php echo $rows['User_Name'];?></td>
     
-     <td><?php echo $rows['Student_Class'];?></td>
-     <td><?php echo $rows['Student_Section'];?></td>
-     
-     <td><?php echo $rows['Student_DOB'];?></td>
-     <td><?php echo $rows['Student_Gender'];?></td>
-     <td><?php echo $rows['Student_Mobile'];?></td>
-     <td><?php echo $rows['finger_template'];?></td>
-     
-
-
+     <td><?php echo $rows['Class'];?></td>
+     <td><?php echo $rows['Section'];?></td>
+     <td><?php echo $rows['Subject'];?></td>
+    
+  
  </tr>
  <?php
 
-  }}
-  
+  }
  ?>
  </html>

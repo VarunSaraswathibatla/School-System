@@ -2,7 +2,7 @@
 <html lang="en">
   
 <head>
-    <title>Delete Data</title>
+    <title>Delete Teacher Data</title>
 </head>
 <link rel="stylesheet" href="Header.css">
 
@@ -19,27 +19,20 @@
 </div><br><br><br><br><br><br>
 <body>
     <center>
-        <h1>DELETE STUDENT FORM</h1>
+        <h1>Delete Teacher data</h1>
                                             
         <form action>
             <p>
-                <label for="Id">Student-Id:</label>
+                <label for="Id">User-Id:</label>
                 <input type="text" name="Student_ID" id="Id">
-            </p>
-            <p>
-                <label for="Year">Academic Year:</label>
-                <input type="text" name="Academic-Year" id="Year">
-            </p>    
-  
-            
-              
+            </p>   
             <input type="submit" value="Submit">
         </form>
     </center>
     
         <?php
   
-        
+       
         $conn = mysqli_connect("localhost", "root", "*", "school_system");
           
         // Check connection
@@ -53,21 +46,10 @@
           
         
         $Student_ID =  $_REQUEST['Student_ID'];
-        $Academic_Year =  $_REQUEST['Academic-Year'];
-        
-
-       
-          
-    
-       
-        $sql = "Delete from student_variable where Student_Id = '$Student_ID' 
-                and Academic_Start='$Academic_Year'";
-
-          
-        if(mysqli_query($conn, $sql))
-        {
-            if($Student_ID!=null and $Academic_Year!=NULL)
-            echo "<h3><CENTER>Data  is Deleted in the database successfully." 
+        $sql = "Delete from user_details where User_Id = '$Student_ID'";
+        $sql2 = "Delete from user where User_Id = '$Student_ID'"; 
+        if(mysqli_query($conn, $sql) and mysqli_query($conn, $sql2)){
+            echo "<h3>Data  is Deleted in the database successfully." 
                 . " Please browse your localhost php my admin" 
                 . " to view the updated data</h3>"; 
   

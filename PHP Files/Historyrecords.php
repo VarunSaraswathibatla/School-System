@@ -1,9 +1,3 @@
-<?php
-
-
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,43 +20,35 @@
     <h1> Filter</h1><center>
     <form action>
                 <p>
-                <label for="Id">Student-Id:</label>
-                <input type="text" name="Student_ID" id="Id">
+                <label for="Student_Id">Student-Id:</label>
+                <input type="text" name="Student_Id" id="Id">
 
-				        <label for="FName">Name:</label>
-                <input type="text" name="Studentname" id="FName">
-                <h3>Class:</h3>
-                1<input type="checkbox" name="class[]" value=1>
-                2<input type="checkbox" name="class[]" value=2>
-                3<input type="checkbox" name="class[]" value=3>
-                4<input type="checkbox" name="class[]" value=4>
-                5<input type="checkbox" name="class[]" value=5>
-                6<input type="checkbox" name="class[]" value=6>
-                7<input type="checkbox" name="class[]" value=7>
-                8<input type="checkbox" name="class[]" value=8>
-                9<input type="checkbox" name="class[]" value=9>
-                10<input type="checkbox" name="class[]" value=10>
+				
+            </p>
 
-        <h3>Section:</h3>
-				A<input type="checkbox" name="section[]" value="A">
-    		B<input type="checkbox" name="section[]" value="B">
-   			C<input type="checkbox" name="section[]" value="C">
-    		D<input type="checkbox" name="section[]" value="D">
+            <p>
+                <label for="Name">Student Name:</label>
+                <input type="text" name="Name" id="Name">
 
+				
+            </p>
+
+
+            <p>
+                <label for="Year">Academic_Year:</label>
+                <input type="text" name="Academic_year" id="Year">
+
+				
             </p>
 
         <input type="submit" value="Submit">
 
 </form>
 </center>
-<?php
-error_reporting(E_ALL ^ E_WARNING);
- $Student_Id = $_REQUEST['Student_ID'];
- $Student_name = $_REQUEST['Studentname'];
 
 
 
-?>
+
 
 </body>
 </html>
@@ -78,32 +64,24 @@ error_reporting(E_ALL ^ E_WARNING);
   }
 
   error_reporting(E_ALL ^ E_WARNING);
-  $Student_Fname= $_REQUEST['Studentname'];
+  $Student_Id= $_REQUEST['Student_Id'];
+  $Student_Name= $_REQUEST['Name'];
+  $AcademicYear= $_REQUEST['Academic_year'];
+
+
 
   $y= date("Y");
-  $query = "SELECT student.Student_ID,CONCAT(Student_Fname,' ',Student_Mname,' ',Student_Lname)Student_name,Student_DOB,Student_DOB,Student_Gender,Student_Mobile,finger_template,Student_Class,Student_Section,Student_Rollno FROM student left join
-   student_variable on student.Student_ID=student_variable.Student_Id
-  where student_variable.Academic_Start='$y'";
+  $query = "SELECT student.Student_ID,CONCAT(Student_fname,' ',Student_Mname,' ',Student_Lname)Student_name,Student_DOB,Student_Gender,Student_Mobile,finger_template,Student_Class,Student_Section,Student_Rollno FROM student left join
+   student_variable on student.Student_Id=student_variable.Student_Id where student.Student_ID!=0";
  // $q2="select Student_fname from student where Student_Fname like '$Student_Fname'%;";
 
 
 
 
  	$filtered_get = array_filter($_GET);                  // removes empty values from $_GET
-  	if (count($filtered_get))
-   	{ // not empty
+  
 
-	  $sec = $_GET['section'];
-	  if($sec)
-	  $secount=count($sec);
-	  unset($_GET['section']);
-	  $filtered_get = array_filter($_GET);
-
-    $cla = $_GET['class'];
-	  if($cla)
-	  $clacount=count($cla);
-	  unset($_GET['class']);
-	  $filtered_get = array_filter($_GET);
+	
 
 
 
@@ -116,61 +94,34 @@ error_reporting(E_ALL ^ E_WARNING);
       foreach($filtered_get as $key => $value)
       {
 
-         if($key!='Studentname')
+         if($key!='Name')
 		 {
 			$query .=" and";
-           $query .= " student_variable.$key = '$value' ";
+           $query .= " student_variable.$key = '$value'";
            $c--;
            error_reporting(E_ALL ^ E_WARNING);
 		 }
 		else
 		{
 			$query .=" and";
-			$query .= " student.Student_Fname like '$value%' ";
+			$query .= " student.student_fname like '$value%'";
 			$c--;
 			error_reporting(E_ALL ^ E_WARNING);
 
 		}
+
+
+
 				// $filtered_get keyname = $filtered_get['keyname'] value
        }
-   }
-   if($clacount>=1)
-   {
-     $query .=" and (";
-   }
+   
+  
 
-     foreach($cla as $c)
-      {
-      if($clacount>1)
-      {
-        $query .=" student_variable.Student_Class='$c' OR ";
-         $clacount--;
-        }
-      else if($clacount==1)
-      {
-        $query .=" student_variable.Student_Class='$c') ";
-      }
-    }
+   
 
-   if($secount>=1)
-   {
-	   $query .=" and ( ";
-   }
-
-	   foreach($sec as $s)
-   		{
-			if($secount>1)
-			{
-	   		$query .=" student_variable.Student_Section='$s' OR ";
-			   $secount--;
-   			}
-			else if($secount==1)
-			{
-				$query .=" student_variable.Student_Section='$s')";
-			}
-		}
+	   
      $query .= " order by student_variable.Student_Class;";
-    
+    echo $query;
 
 
      $result = $conn->query($query);
@@ -209,9 +160,6 @@ error_reporting(E_ALL ^ E_WARNING);
 </head>
 
 <body>
-<?php if($secount>0 or $clacount>0  or $Student_name!=null or $Student_Id>0)
-{ 
-  ?>
         <h1>Student Details</h1>
 
 		<table>
@@ -264,7 +212,6 @@ error_reporting(E_ALL ^ E_WARNING);
  </tr>
  <?php
 
-  }}
-  
+  }
  ?>
  </html>
